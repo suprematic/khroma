@@ -62,6 +62,15 @@
         js/chrome.runtime.connect js/chrome.runtime
           (options->jsparams [extensionId connectInfo])))))
 
+(defn connections []
+  (let [c (chan)]
+    (.addListener js/chrome.runtime.onConnect
+      (fn [port]
+        (go
+          (>! c (channel-from-port port)))))
+    c))
+
+
 (defn- message-event [message sender response-fn]
   {:message (js->clj message) :sender (js->clj sender) :response-fn response-fn}) 
  
