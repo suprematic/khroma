@@ -32,7 +32,7 @@
 		(.isAllowedIncognitoAccess js/chrome.extension
 			(fn [is-allowed-access]
 				(go
-					(>! ch (js->clj tab))
+					(>! ch (js->clj is-allowed-access))
 					(async/close ch)))) ch))
 
 (defn is-allowed-file-scheme-access
@@ -40,7 +40,7 @@
 		(.isAllowedFileSchemeAccess js/chrome.extension
 			(fn [is-allowed-access]
 				(go
-					(>! ch (js->clj tab))
+					(>! ch (js->clj is-allowed-access))
 					(async/close ch)))) ch))
 
 (def set-update-url-data [data]
