@@ -1,7 +1,6 @@
 (ns khroma.extension
   (:require
     [cljs.core.async :as async])
-
   (:require-macros
     [cljs.core.async.macros :refer [go]]))
 
