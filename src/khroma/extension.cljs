@@ -38,5 +38,5 @@
 (defn- make-handler [ch]
   (fn [data]
     (go
-      (>! ch data)
+      (>! ch (js->clj data))
       (async/close ch))))
