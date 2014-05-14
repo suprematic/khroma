@@ -17,6 +17,6 @@
   (util/with-callback
     #(.sendCommand js/chrome.debugger target method command-params %)))
 
-(defn get-targets
+(defn get-targets []
   (util/with-callback
     #(.getTargets js/chrome.debugger %)))

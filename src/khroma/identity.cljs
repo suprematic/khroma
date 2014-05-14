@@ -5,7 +5,7 @@
 	(:require-macros
 		[cljs.core.async.macros :refer [go]]))
 
-(defn get-accounts
+(defn get-accounts []
 	(util/with-callback
 		#(.getAccounts js/chrome.identity %)))
 
