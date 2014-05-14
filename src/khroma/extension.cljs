@@ -1,12 +1,13 @@
 (ns khroma.extension
   (:require
-    [cljs.core.async :as async])
+    [cljs.core.async :as async]
+    [khroma.util :as util])
   (:require-macros
     [cljs.core.async.macros :refer [go]]))
 
 (defn send-request "Depricated function" [extension-id request]
-  (with-callback
-    #(.send-request js/chrome.extension extension-id request %)))
+  (util/with-callback
+    #(.sendRequest js/chrome.extension extension-id request %)))
 
 (defn get-url [path]
   (.getURL js/chrome.extension path))
@@ -21,22 +22,12 @@
   (.getExtensionTabs js/chrome.extension))
 
 (defn allowed-incognito-access?
-  (with-callback
+  (util/with-callback
     #(.isAllowedIncognitoAccess js/chrome.extension %)))
 
 (defn allowed-file-scheme-access?
-  (with-callback
+  (util/with-callback
     #(.isAllowedFileSchemeAccess js/chrome.extension %)))
 
 (def set-update-url-data [data]
   (.setUpdateUrlData js/chrome.extension data))
-
-(defn- with-callback [f]
-  (let [ch (async/chan)]
-    (f (make-handler ch)) ch))
-
-(defn- make-handler [ch]
-  (fn [data]
-    (go
-      (>! ch (js->clj data))
-      (async/close ch))))
