@@ -1,4 +1,5 @@
-(ns khroma.log)
+(ns khroma.log
+  (:refer-clojure :exclude [count]))
 
 (defn console-fn [f]
   (fn [& args]
