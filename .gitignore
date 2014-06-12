@@ -1,3 +1,6 @@
 target/**
 /pom.xml
 /extension/
+/.lein-repl-history
+/pom.xml.asc
+.DS_Store
