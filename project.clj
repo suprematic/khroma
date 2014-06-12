@@ -1,5 +1,5 @@
- (defproject ascent.khroma "0.0.1-SNAPSHOT"
-  :description "ClojureScript interface to Google Chrome API"
+ (defproject khroma "0.0.1-SNAPSHOT"
+  :description "ClojureScript interface to Google Chrome Extension API"
   
   :license { :name "Eclipse"
     :url "http://www.eclipse.org/legal/epl-v10.html"}
