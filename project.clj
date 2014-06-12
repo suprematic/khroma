@@ -1,5 +1,6 @@
- (defproject khroma "0.0.1-SNAPSHOT"
+ (defproject khroma "0.0.2-SNAPSHOT"
   :description "ClojureScript interface to Google Chrome Extension API"
+  :url "https://github.com/suprematic/khroma"
   
   :license { :name "Eclipse"
     :url "http://www.eclipse.org/legal/epl-v10.html"}
