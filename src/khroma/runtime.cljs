@@ -1,7 +1,6 @@
 (ns khroma.runtime
   (:require 
             [khroma.log :as log]
-            
             [cljs.core.async :as async]
             [cljs.core.async.impl.protocols :as p])
   
@@ -79,7 +78,8 @@
     (.addListener js/chrome.runtime.onMessage 
       (fn [message sender reply-fn]
         (go
-          (>! ch (message-event message sender reply-fn)))))))
+          (>! ch (message-event message sender reply-fn)))))
+    ch))
 
 (defn send-message [message & options]
   (let [{:keys [extensionId options responseCallback]} (apply hash-map options)]
