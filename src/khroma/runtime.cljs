@@ -22,8 +22,11 @@
 
 (def chan
   (partial async/chan 100)) 
-  
-(defn- channel-from-port [port]
+
+(defprotocol IChromePort
+  (port-name [this]))
+
+(defn channel-from-port [port]
   (let [in (chan) out (chan)]
     (go-loop [message (<! out)]
       (when message
@@ -52,7 +55,11 @@
       (close! [_]
         (p/close! in)
         (p/close! out)
-        (.disconnect port)))))
+        (.disconnect port))
+      
+      IChromePort
+      (port-name [_]
+        (.-name port)))))
 
 (defn connect [& options]
   (channel-from-port
