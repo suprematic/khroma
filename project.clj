@@ -12,12 +12,4 @@
         [org.clojure/core.async "0.1.267.0-0d7780-alpha"]]
   
   :plugins [[lein-cljsbuild "1.0.2"]]
-  
-  :cljsbuild {
-    :builds[{:id "dev"
-    :source-paths ["src"]
-    :compiler {:output-dir "extension/js/compiled"
-      :output-to "extension/js/compiled/ascent.js"
-      :source-map "extension/js/compiled/ascent.js.map"
-      :optimizations :none
-      :pretty-print true}}]})
+)
