@@ -11,8 +11,7 @@
   (let [ch (async/chan)]
     (.get js/chrome.tabs tab-id
       (fn [tab]
-        (go
-          (>! ch (js->clj tab))))) ch))
+        (async/put! ch (walk/keywordize-keys (js->clj {:tab tab}))))) ch))
 
 (defn tab-updated-events []
   (let [ch (async/chan)]
