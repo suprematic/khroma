@@ -13,20 +13,17 @@
       (fn [tab]
         (async/put! ch (walk/keywordize-keys (js->clj {:tab tab}))))) ch))
 
-(defn tab-updated-events []
+(defn- tab-action-events [instance & key-args]
   (let [ch (async/chan)]
-    (.addListener js/chrome.tabs.onUpdated
-      (fn [id info tab]
-        (async/put! ch (walk/keywordize-keys (js->clj {:tabId id :changeInfo info :tab tab}))))) ch))
+      (.addListener instance
+        (fn [& val-args]
+          (async/put! ch (walk/keywordize-keys (js->clj (zipmap key-args val-args)))))) ch))
+
+(defn tab-updated-events []
+  (tab-action-events js/chrome.tabs.onUpdated :tabId :changeInfo :tab))
 
 (defn tab-removed-events []
-  (let [ch (async/chan)]
-    (.addListener js/chrome.tabs.onRemoved
-      (fn [id info]
-        (async/put! ch (walk/keywordize-keys (js->clj {:tabId id :removeInfo info}))))) ch))
+  (tab-action-events js/chrome.tabs.onRemoved :tabId :removeInfo))
 
 (defn tab-replaced-events []
-  (let [ch (async/chan)]
-    (.addListener js/chrome.tabs.onReplaced
-      (fn [added removed]
-        (async/put! ch (walk/keywordize-keys (js->clj {:added added :removed removed}))))) ch))
+  (tab-action-events js/chrome.tabs.onReplaced :added :removed))
