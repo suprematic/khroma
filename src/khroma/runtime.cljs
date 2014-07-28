@@ -85,7 +85,8 @@
     (.addListener js/chrome.runtime.onMessage 
       (fn [message sender reply-fn]
         (go
-          (>! ch (message-event message sender reply-fn)))))
+          (>! ch (message-event message sender reply-fn)))
+        true))
     ch))
 
 (defn send-message [message & options]
