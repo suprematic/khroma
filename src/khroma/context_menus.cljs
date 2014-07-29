@@ -1,7 +1,6 @@
 (ns khroma.context-menus
   (:require [cljs.core.async :as async]
-            [khroma.log :as console]
-            [khroma.util :refer [options->jsparams]])
+            [khroma.log :as console])
   (:require-macros [cljs.core.async.macros :refer [go]]))
 
 (defn create [& {:as properties}]
