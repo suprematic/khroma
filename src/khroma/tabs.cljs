@@ -1,10 +1,10 @@
 (ns khroma.tabs
-  (:require 
+  (:require
     [khroma.log :as log]
     [clojure.walk :as walk]
     [cljs.core.async :as async])
-  
-  (:require-macros 
+
+  (:require-macros
     [cljs.core.async.macros :refer [go go-loop]]))
 
 (defn get-tab [tab-id]
@@ -12,6 +12,13 @@
     (.get js/chrome.tabs tab-id
       (fn [tab]
         (async/put! ch (walk/keywordize-keys (js->clj {:tab tab}))))) ch))
+
+(defn get-active-tab []
+  (let [ch (async/chan)]
+    (.query js/chrome.tabs #js {:active true :currentWindow true}
+      (fn [result]
+        (when-let [tab (first result)]
+          (async/put! ch (walk/keywordize-keys (js->clj {:tab tab})))))) ch))
 
 (defn- tab-action-events [instance & key-args]
   (let [ch (async/chan)]
