@@ -4,3 +4,4 @@ target/**
 /.lein-repl-history
 /pom.xml.asc
 .DS_Store
+*.iml
