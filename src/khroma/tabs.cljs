@@ -1,11 +1,10 @@
 (ns khroma.tabs
-  (:require
-    [khroma.log :as log]
-    [clojure.walk :as walk]
-    [cljs.core.async :as async])
-
-  (:require-macros
-    [cljs.core.async.macros :refer [go go-loop]]))
+  (:require [khroma.log :as log]
+            [khroma.messaging :refer [channel-from-port chan]]
+            [khroma.util :refer [options->jsparams]]
+            [clojure.walk :as walk]
+            [cljs.core.async :as async])
+  (:require-macros [cljs.core.async.macros :refer [go go-loop]]))
 
 (defn get-tab [tab-id]
   (let [ch (async/chan)]
@@ -34,3 +33,9 @@
 
 (defn tab-replaced-events []
   (tab-action-events js/chrome.tabs.onReplaced :added :removed))
+
+(defn connect [& {:keys [tabId connectInfo]}]
+  (channel-from-port
+    (.apply     
+      js/chrome.tabs.connect js/chrome.tabs
+      (options->jsparams [tabId connectInfo]))))

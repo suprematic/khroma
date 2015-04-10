@@ -21,3 +21,10 @@
 (defn with-callback [f]
   (let [ch (async/chan)]
     (f (make-handler ch)) ch))
+
+
+(defn options->jsparams [options]
+  (clj->js
+    (map clj->js (filter (complement nil?) options))))
+
+
