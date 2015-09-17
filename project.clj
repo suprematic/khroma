@@ -1,5 +1,5 @@
 (defproject
-  khroma "0.0.2"
+  khroma "0.0.3-SNAPSHOT"
   :description "ClojureScript interface to Google Chrome Extension API"
   :url "https://github.com/suprematic/khroma"
 
@@ -7,7 +7,7 @@
 
   :source-paths  ["src"]
 
-  :dependencies [[org.clojure/clojure "1.5.1"]
-                 [org.clojure/clojurescript "0.0-2234"]
-                 [org.clojure/core.async "0.1.267.0-0d7780-alpha"]]
+  :dependencies [[org.clojure/clojure "1.7.0"]
+                 [org.clojure/clojurescript "1.7.122"]
+                 [org.clojure/core.async "0.1.346.0-17112a-alpha"]]
    )
