@@ -20,6 +20,15 @@
         (when-let [tab (first result)]
           (async/put! ch (walk/keywordize-keys (js->clj {:tab tab})))))) ch))
 
+(defn create
+  "Creates a new tab with the specified properties"
+  ([]
+   (create {} nil))
+  ([props]
+   (create props nil))
+  ([props callback]
+   (.create js/chrome.tabs (clj->js props) callback)))
+
 (defn- tab-action-events [instance & key-args]
   (let [ch (async/chan)]
       (.addListener instance
