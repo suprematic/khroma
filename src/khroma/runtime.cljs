@@ -61,14 +61,23 @@
       (port-name [_]
         (.-name port)))))
 
-(defn connect [& options]
+(defn connect
+  "Attempts to connect to connect listeners within an extension/app.
+
+  See https://developer.chrome.com/extensions/runtime#method-connect"
+  [& options]
   (channel-from-port
     (let [{:keys [extensionId connectInfo]} (apply hash-map options)]
       (.apply     
         js/chrome.runtime.connect js/chrome.runtime
           (options->jsparams [extensionId connectInfo])))))
 
-(defn connections []
+(defn connections
+  "Fired when a connection is made from either an extension process
+  or a content script.
+
+  See https://developer.chrome.com/extensions/runtime#event-onConnect"
+  []
   (let [c (chan)]
     (.addListener js/chrome.runtime.onConnect
       (fn [port]
