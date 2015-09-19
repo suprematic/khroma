@@ -1,6 +1,7 @@
 (ns khroma.browser
   (:require
-    [cljs.core.async :refer [chan >!]])
+    [cljs.core.async :refer [chan >!]]
+    [clojure.walk :as walk])
   (:require-macros
     [cljs.core.async.macros :refer [go go-loop]]))
 
@@ -12,6 +13,6 @@
     (.addListener js/chrome.browserAction.onClicked
                   (fn [tab]
                     (go
-                      (>! ch tab))))
+                      (>! ch (walk/keywordize-keys (js->clj tab))))))
     ch))
 

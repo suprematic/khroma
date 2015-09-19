@@ -1,6 +1,7 @@
 (ns khroma.windows
   (:require
-    [cljs.core.async :refer [chan >!]])
+    [cljs.core.async :refer [chan >!]]
+    [clojure.walk :as walk])
   (:require-macros
     [cljs.core.async.macros :refer [go go-loop]]))
 
@@ -14,6 +15,6 @@
      (.getCurrent js/chrome.windows (clj->js get-info)
                   (fn [window]
                     (go
-                      (>! ch window))))
+                      (>! ch (walk/keywordize-keys (js->clj window))))))
      ch)))
 
