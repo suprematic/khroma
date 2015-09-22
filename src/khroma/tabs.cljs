@@ -1,7 +1,8 @@
 (ns khroma.tabs
   (:require
     [clojure.walk :as walk]
-    [cljs.core.async :as async])
+    [cljs.core.async :as async]
+    [khroma.util :refer [add-listener]])
 
   (:require-macros
     [cljs.core.async.macros :refer [go go-loop]]))
@@ -32,30 +33,25 @@
   ([props callback]
    (.create js/chrome.tabs (clj->js props) callback)))
 
-(defn- tab-action-events [instance & key-args]
-  (let [ch (async/chan)]
-      (.addListener instance
-        (fn [& val-args]
-          (async/put! ch (walk/keywordize-keys (js->clj (zipmap key-args val-args)))))) ch))
 
 (defn tab-created-events
   "Receives events when a tab is created."
   []
-  (tab-action-events js/chrome.tabs.onCreated :tab))
+  (add-listener js/chrome.tabs.onCreated :tab))
 
 (defn tab-updated-events
   "Receives events when a tab is updated. This will include changing the URL,
   title or any content, not only creation. It will not fire when a tab is
   removed."
   []
-  (tab-action-events js/chrome.tabs.onUpdated :tabId :changeInfo :tab))
+  (add-listener js/chrome.tabs.onUpdated :tabId :changeInfo :tab))
 
 (defn tab-removed-events
   "Receives events when a tab is removed."
   []
-  (tab-action-events js/chrome.tabs.onRemoved :tabId :removeInfo))
+  (add-listener js/chrome.tabs.onRemoved :tabId :removeInfo))
 
 (defn tab-replaced-events
   "Receives events when a tab is replaced with another tab."
   []
-  (tab-action-events js/chrome.tabs.onReplaced :added :removed))
+  (add-listener js/chrome.tabs.onReplaced :added :removed))

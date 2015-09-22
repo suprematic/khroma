@@ -1,18 +1,14 @@
 (ns khroma.browser
   (:require
-    [cljs.core.async :refer [chan >!]]
-    [clojure.walk :as walk])
+    [khroma.util :refer [add-listener]])
   (:require-macros
     [cljs.core.async.macros :refer [go go-loop]]))
 
 
-(defn on-click
-  "Returns a channel where we'll put a tab when we get an onClicked event"
+(defn on-clicked
+  "Returns a channel where we'll put a tab when we get an onClicked event
+
+  https://developer.chrome.com/extensions/browserAction#event-onClicked"
   []
-  (let [ch (chan)]
-    (.addListener js/chrome.browserAction.onClicked
-                  (fn [tab]
-                    (go
-                      (>! ch (walk/keywordize-keys (js->clj tab))))))
-    ch))
+  (add-listener js/chrome.browserAction.onClicked :tab))
 
