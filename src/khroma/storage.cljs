@@ -1,6 +1,7 @@
 (ns khroma.storage
   (:require
-    [cljs.core.async :refer [chan >!]])
+    [cljs.core.async :refer [chan >!]]
+    [khroma.util :as util])
   (:require-macros
     [cljs.core.async.macros :refer [go go-loop]]))
 
@@ -66,3 +67,11 @@
    (clear nil))
   ([on-complete]
    (.clear js/chrome.storage.sync on-complete)))
+
+(defn on-changed
+  "Raised when a storage change is detected.
+
+  See https://developer.chrome.com/extensions/storage#event-onChanged
+  "
+  []
+  (util/add-listener js/chrome.storage.onChanged :changes :areaName))
