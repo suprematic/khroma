@@ -1,9 +1,9 @@
 (ns khroma.runtime
   (:require 
             [khroma.log :as log]
-            [cljs.core.async :as async]
-            [cljs.core.async.impl.protocols :as p])
-  
+            [khroma.messaging :refer [channel-from-port chan]]
+            [khroma.util :refer [options->jsparams]]
+            [cljs.core.async :as async])
   (:require-macros 
             [cljs.core.async.macros :refer [go go-loop]]))
 
@@ -16,51 +16,6 @@
     (js->clj 
       (.getManifest js/chrome.runtime))))
 
-(defn- options->jsparams [options]
-  (clj->js
-    (map clj->js (filter (complement nil?) options))))
-
-(def chan
-  (partial async/chan 100)) 
-
-(defprotocol IChromePort
-  (port-name [this]))
-
-(defn channel-from-port [port]
-  (let [in (chan) out (chan)]
-    (go-loop [message (<! out)]
-      (when message
-        (.postMessage port (clj->js message)) 
-        (recur (<! out))))    
-    
-    (.addListener (.-onMessage port) 
-      (fn [message sender response-fn]
-        (go (>! in (js->clj message)))))
-    
-    (.addListener (.-onDisconnect port)
-      (fn []
-        (async/close! in)
-        (async/close! out)))
-       
-    (reify
-      p/ReadPort
-      (take! [_ handler]
-        (p/take! in handler))
-
-      p/WritePort
-      (put! [_ message handler]
-        (p/put! out message handler))
-
-      p/Channel
-      (close! [_]
-        (p/close! in)
-        (p/close! out)
-        (.disconnect port))
-      
-      IChromePort
-      (port-name [_]
-        (.-name port)))))
-
 (defn connect
   "Attempts to connect to connect listeners within an extension/app.
 
@@ -70,19 +25,18 @@
     (let [{:keys [extensionId connectInfo]} (apply hash-map options)]
       (.apply     
         js/chrome.runtime.connect js/chrome.runtime
-          (options->jsparams [extensionId connectInfo])))))
+        (options->jsparams [extensionId connectInfo])))))
 
-(defn connections
+(defn connections []
   "Fired when a connection is made from either an extension process
   or a content script.
 
   See https://developer.chrome.com/extensions/runtime#event-onConnect"
-  []
   (let [c (chan)]
     (.addListener js/chrome.runtime.onConnect
       (fn [port]
         (go
-          (>! c (channel-from-port port)))))
+          (async/>! c (channel-from-port port)))))
     c))
 
 
@@ -94,7 +48,7 @@
     (.addListener js/chrome.runtime.onMessage 
       (fn [message sender reply-fn]
         (go
-          (>! ch (message-event message sender reply-fn)))))
+          (async/>! ch (message-event message sender reply-fn)))))
     ch))
 
 (defn send-message [message & options]

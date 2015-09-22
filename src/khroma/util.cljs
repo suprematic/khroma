@@ -34,3 +34,7 @@
                   (fn [& val-args]
                     (async/put! ch (walk/keywordize-keys (js->clj (zipmap key-args val-args))))))
     ch))
+
+(defn options->jsparams [options]
+  (clj->js
+    (map clj->js (filter (complement nil?) options))))

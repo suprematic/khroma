@@ -1,11 +1,10 @@
 (ns khroma.tabs
-  (:require
-    [clojure.walk :as walk]
-    [cljs.core.async :as async]
-    [khroma.util :refer [add-listener]])
-
-  (:require-macros
-    [cljs.core.async.macros :refer [go go-loop]]))
+  (:require [khroma.log :as log]
+            [khroma.messaging :refer [channel-from-port chan]]
+            [khroma.util :refer [options->jsparams add-listener]]
+            [clojure.walk :as walk]
+            [cljs.core.async :as async])
+  (:require-macros [cljs.core.async.macros :refer [go go-loop]]))
 
 (defn get-tab
   "Returns a channel where we'll put a tab' information from its id"
@@ -55,3 +54,9 @@
   "Receives events when a tab is replaced with another tab."
   []
   (add-listener js/chrome.tabs.onReplaced :added :removed))
+
+(defn connect [& {:keys [tabId connectInfo]}]
+  (channel-from-port
+    (.apply     
+      js/chrome.tabs.connect js/chrome.tabs
+      (options->jsparams [tabId connectInfo]))))
