@@ -5,7 +5,7 @@
   (:require-macros
     [cljs.core.async.macros :refer [go]]))
 
-(defn send-request "Depricated function" [extension-id request]
+(defn send-request "Deprecated function" [extension-id request]
   (util/with-callback
     #(.sendRequest js/chrome.extension extension-id request %)))
 
