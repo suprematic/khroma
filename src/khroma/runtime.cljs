@@ -21,7 +21,7 @@
 
   See https://developer.chrome.com/extensions/runtime#method-connect"
   [& options]
-  (kmessaging/channel-from-port
+  (messaging/channel-from-port
     (let [{:keys [extensionId connectInfo]} (apply hash-map options)]
       (.apply
         js/chrome.runtime.connect js/chrome.runtime
