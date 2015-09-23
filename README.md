@@ -11,7 +11,7 @@ and Chrome OS API's to make use of ClojureScript for extensions and applications
 Add the following dependency to your `project.clj` file:
 
 ```clojure
-[khroma "0.0.3-SNAPSHOT"]
+[khroma "0.0.3"]
 ```
 
 ## Usage Example
@@ -39,11 +39,6 @@ Add the following dependency to your `project.clj` file:
 
 ## License
 
-Copyright © 2014 SUPREMATIC (http://www.suprematic.net)
+Copyright © 2015 SUPREMATIC (http://www.suprematic.net)
 
 Distributed under the Eclipse Public License, the same as Clojure.
-
-
-
-
-
