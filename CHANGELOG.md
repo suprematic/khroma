@@ -1,5 +1,9 @@
 # Khroma changelog
 
+## 0.1.0
+
+- Renamed tabs and runtime event handlers for consistency, added deprecated wrapper for the old function names.  
+
 ## 0.0.3
 
 - New storage namespace. Wraps storage functions and events, currently all invocations go to sync (need to decide if we will provide separate functions for local/sync).
