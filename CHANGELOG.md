@@ -2,7 +2,11 @@
 
 ## 0.1.0
 
+Includes potentially breaking changes.
+
 - Renamed tabs and runtime event handlers for consistency, added deprecated wrapper for the old function names.  
+- storage/get will now keywordize the keys on the dictionary being returned.
+
 
 ## 0.0.4
 

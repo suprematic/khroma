@@ -1,15 +1,22 @@
 (ns khroma.storage
   (:require
     [cljs.core.async :refer [chan >!]]
-    [khroma.util :as util])
+    [khroma.util :as util]
+    [clojure.walk :as walk])
   (:require-macros
     [cljs.core.async.macros :refer [go go-loop]]))
 
+
+(def local js/chrome.storage.local)
+(def sync js/chrome.storage.sync)
 
 (defn set
   "Receives and object which gives each key/value pair to update storage with
   and saves it locally. It can optionally receive a function that gets called
   back when the value has been set.
+
+  When getting, we will keywordize the values on the results, so you should
+  only use as keys values that can be turned to keywords.
 
   See https://developer.chrome.com/extensions/storage#type-StorageArea"
   ([items]
@@ -22,9 +29,6 @@
   "Retrieves values from the extension storage. Returns a channel where we'll
   put the results.
 
-  Since we can't assume all users will want to use keywords for the keys, we
-  will not keywordize the result.
-
   See https://developer.chrome.com/extensions/storage#type-StorageArea"
   ([]
    (get nil))
@@ -33,7 +37,7 @@
      (.get js/chrome.storage.sync (clj->js keys)
            (fn [result]
              (go
-               (>! ch (js->clj result)))))
+               (>! ch (walk/keywordize-keys (js->clj result))))))
      ch))
   )
 
