@@ -16,8 +16,8 @@
 (defn- make-handler [ch]
   (fn [& data]
     (go
-      (if data (>! ch (js->clj (first data))))
-      (async/close ch))))
+      (if data (async/>! ch (js->clj (first data))))
+      (async/close! ch))))
 
 (defn with-callback [f]
   (let [ch (async/chan)]
