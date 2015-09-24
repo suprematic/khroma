@@ -12,29 +12,39 @@
 
 (defn set
   "Receives and object which gives each key/value pair to update storage with
-  and saves it locally. It can optionally receive a function that gets called
-  back when the value has been set.
+  and saves it. It can optionally receive a function that gets called back when
+  the value has been set.
+
+  If no storage area is indicated, it defaults to the local storage.
 
   When getting, we will keywordize the values on the results, so you should
   only use as keys values that can be turned to keywords.
 
+  Use storage/local or storage/sync for the area.
+
   See https://developer.chrome.com/extensions/storage#type-StorageArea"
   ([items]
-   (set items nil))
-  ([items on-complete]
-   (.set js/chrome.storage.sync (clj->js items) on-complete)))
+   (set items local nil))
+  ([items area]
+   (set items area nil))
+  ([items area on-complete]
+   (.set area (clj->js items) on-complete)))
 
 
 (defn get
   "Retrieves values from the extension storage. Returns a channel where we'll
   put the results.
 
+  If no storage area is indicated, it defaults to the local storage.
+
   See https://developer.chrome.com/extensions/storage#type-StorageArea"
   ([]
-   (get nil))
+   (get nil local))
   ([keys]
+   (get keys local))
+  ([keys area]
    (let [ch (chan)]
-     (.get js/chrome.storage.sync (clj->js keys)
+     (.get area (clj->js keys)
            (fn [result]
              (go
                (>! ch (walk/keywordize-keys (js->clj result))))))
@@ -43,12 +53,16 @@
 
 
 (defn bytes-in-use
-  "Retrieves the total bytes in use."
+  "Retrieves the total bytes in use in an area.
+
+  See https://developer.chrome.com/extensions/storage#type-StorageArea"
   ([]
-   (bytes-in-use nil))
+   (bytes-in-use nil local))
   ([keys]
+   (bytes-in-use keys local))
+  ([keys area]
    (let [ch (chan)]
-     (.getBytesInUse js/chrome.storage.sync (clj->js keys)
+     (.getBytesInUse area (clj->js keys)
                      (fn [result]
                        (go
                          (>! ch result))))
@@ -60,17 +74,21 @@
   "Removes values from the extension's storage. Can receive an optional callback
   function that gets invoked when the removal is complete."
   ([keys]
-   (remove keys nil))
-  ([keys on-complete]
-   (.remove js/chrome.storage.sync (clj->js keys) on-complete)))
+   (remove keys local nil))
+  ([keys area]
+   (remove keys area nil))
+  ([keys area on-complete]
+   (.remove area (clj->js keys) on-complete)))
 
 
 (defn clear
   "Clears all extension storage."
   ([]
-   (clear nil))
-  ([on-complete]
-   (.clear js/chrome.storage.sync on-complete)))
+   (clear local nil))
+  ([area]
+   (clear area nil))
+  ([area on-complete]
+   (.clear area on-complete)))
 
 (defn on-changed
   "Raised when a storage change is detected.
