@@ -8,6 +8,7 @@ Includes potentially breaking changes.
 - storage/get will now keywordize the keys on the dictionary being returned.
 - Added extra parameters for storage functions to be able to indicate the area.
 - BREAKING CHANGE: Default area for storage functions will be `local`.
+- New tabs/update, tabs/activate functions
 
 
 ## 0.0.4

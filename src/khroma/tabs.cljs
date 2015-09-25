@@ -5,6 +5,13 @@
             [cljs.core.async :as async])
   (:require-macros [cljs.core.async.macros :refer [go go-loop]]))
 
+
+;;;;------------------------------
+;;;; Functions
+;;;;------------------------------
+
+
+
 (defn get-tab
   "Returns a channel where we'll put a tab's information from its id"
   [tab-id]
@@ -30,6 +37,26 @@
    (create props nil))
   ([props callback]
    (.create js/chrome.tabs (clj->js props) callback)))
+
+
+(defn update
+  "Updates the properties for a tab.
+
+  See https://developer.chrome.com/extensions/tabs#method-update"
+  ([tab-id properties]
+    (update tab-id properties nil))
+  ([tab-id properties callback]
+    (.update js/chrome.tabs tab-id (clj->js properties) callback)))
+
+(defn activate
+  "Updates a tab to be both highlighted and active."
+  [tab-id]
+  (update tab-id {:highlighted true :active true}))
+
+
+;;;;------------------------------
+;;;; Event handlers
+;;;;------------------------------
 
 
 (defn on-created
