@@ -9,6 +9,7 @@ Includes potentially breaking changes.
 - Added extra parameters for storage functions to be able to indicate the area.
 - BREAKING CHANGE: Default area for storage functions will be `local`.
 - New tabs/update, tabs/activate functions
+- New idle namespace
 
 
 ## 0.0.4
