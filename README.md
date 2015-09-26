@@ -22,7 +22,7 @@ Add the following dependency to your `project.clj` file:
   
   
 ; receieve messages for extension  
-(let [messages (runtime/messages)]
+(let [messages (runtime/on-message)]
   (go-loop [] 
     (when-let [message (<! messages)]
       (process-message message)
@@ -36,6 +36,9 @@ Add the following dependency to your `project.clj` file:
       (fn [response]
         (handle-response response))})
 ```
+
+
+
 
 ## License
 
