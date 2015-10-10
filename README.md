@@ -11,7 +11,7 @@ and Chrome OS API's to make use of ClojureScript for extensions and applications
 Add the following dependency to your `project.clj` file:
 
 ```clojure
-[khroma "0.1.0-SNAPSHOT"]
+[khroma "0.1.0"]
 ```
 
 ## Usage Example
