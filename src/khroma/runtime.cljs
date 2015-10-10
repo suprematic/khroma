@@ -1,7 +1,5 @@
 (ns khroma.runtime
-  (:require
-            [khroma.log :as log]
-            [khroma.messaging :as messaging]
+  (:require [khroma.messaging :as messaging]
             [khroma.util :as kutil]
             [cljs.core.async :as async])
   (:require-macros
@@ -27,7 +25,7 @@
         js/chrome.runtime.connect js/chrome.runtime
         (kutil/options->jsparams [extensionId connectInfo])))))
 
-(defn connections
+(defn on-connect
   "Fired when a connection is made from either an extension process
   or a content script.
 
@@ -40,17 +38,27 @@
           (async/>! c (messaging/channel-from-port port)))))
     c))
 
+(defn connections "DEPRECATED" []
+  (kutil/deprecated on-connect "runtime/on-connect"))
+
 
 (defn- message-event [message sender response-fn]
   {:message (js->clj message) :sender (js->clj sender) :response-fn response-fn})
 
-(defn messages []
+(defn on-message
+  "Fired when a message is sent.
+
+  See https://developer.chrome.com/extensions/runtime#event-onMessage"
+  []
   (let [ch (messaging/chan)]
     (.addListener js/chrome.runtime.onMessage
       (fn [message sender reply-fn]
         (go
           (async/>! ch (message-event message sender reply-fn)))))
     ch))
+
+(defn messages "DEPRECATED" []
+  (kutil/deprecated on-message "runtime/on-message"))
 
 (defn send-message [message & options]
   (let [{:keys [extensionId options responseCallback]} (apply hash-map options)]

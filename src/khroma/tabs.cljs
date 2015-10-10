@@ -1,12 +1,19 @@
 (ns khroma.tabs
-  (:require [khroma.log :as log]
+  (:require [khroma.log :as console]
             [khroma.util :as kutil]
             [clojure.walk :as walk]
             [cljs.core.async :as async])
   (:require-macros [cljs.core.async.macros :refer [go go-loop]]))
 
+
+;;;;------------------------------
+;;;; Functions
+;;;;------------------------------
+
+
+
 (defn get-tab
-  "Returns a channel where we'll put a tab' information from its id"
+  "Returns a channel where we'll put a tab's information from its id"
   [tab-id]
   (let [ch (async/chan)]
     (.get js/chrome.tabs tab-id
@@ -32,24 +39,63 @@
    (.create js/chrome.tabs (clj->js props) callback)))
 
 
-(defn tab-created-events
+(defn update
+  "Updates the properties for a tab.
+
+  See https://developer.chrome.com/extensions/tabs#method-update"
+  ([tab-id properties]
+    (update tab-id properties nil))
+  ([tab-id properties callback]
+    (.update js/chrome.tabs tab-id (clj->js properties) callback)))
+
+(defn activate
+  "Updates a tab to be both highlighted and active."
+  [tab-id]
+  (update tab-id {:highlighted true :active true}))
+
+
+;;;;------------------------------
+;;;; Event handlers
+;;;;------------------------------
+
+
+(defn on-created
   "Receives events when a tab is created."
   []
   (kutil/add-listener js/chrome.tabs.onCreated :tab))
 
-(defn tab-updated-events
+(defn on-updated
   "Receives events when a tab is updated. This will include changing the URL,
   title or any content, not only creation. It will not fire when a tab is
   removed."
   []
   (kutil/add-listener js/chrome.tabs.onUpdated :tabId :changeInfo :tab))
 
-(defn tab-removed-events
+(defn on-removed
   "Receives events when a tab is removed."
   []
   (kutil/add-listener js/chrome.tabs.onRemoved :tabId :removeInfo))
 
-(defn tab-replaced-events
-  "Receives events when a tab is replaced with another tab."
+(defn on-replaced
+  "Receives events when a tab is replaced with another tab. The notification
+  will include the id for the tabs added and removed."
   []
   (kutil/add-listener js/chrome.tabs.onReplaced :added :removed))
+
+
+(defn tab-created-events "DEPRECATED" []
+  (kutil/deprecated on-created "tabs/on-created"))
+
+(defn tab-updated-events "DEPRECATED" []
+  (kutil/deprecated on-updated "tabs/on-updated"))
+
+(defn tab-removed-events "DEPRECATED" []
+  (kutil/deprecated on-removed "tabs/on-removed"))
+
+(defn tab-replaced-events "DEPRECATED" []
+  (kutil/deprecated on-replaced "tabs/on-replaced"))
+
+
+
+
+

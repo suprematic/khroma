@@ -1,4 +1,4 @@
-(ns khroma.browser
+(ns khroma.browser-action
   (:require
     [khroma.util :refer [add-listener]])
   (:require-macros

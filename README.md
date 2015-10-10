@@ -1,17 +1,17 @@
 # Khroma
 
-Khroma is a ClojureScript library which provides access to Chrome Extension API. It wraps API with ideomatic functions 
-and heavilly uses core.async for asynchronious API interaction.
+Khroma is a ClojureScript library which provides access to Chrome Extension API. It wraps API with idiomatic functions 
+and heavily uses core.async for asynchronous API interaction.
 
-Khroma is still a work in progress, so not all API is implemented and well tested. The long term goal is to cover all Chrome 
-and Chrome OS API's to make use of ClojureScript for extensions and applications development as convinient as possible.
+Khroma is still a work in progress, so not all APIs are implemented and well tested. The long term goal is to cover all Chrome 
+and Chrome OS API's to make use of ClojureScript for extensions and applications development as convenient as possible.
 
 ## Installation
 
 Add the following dependency to your `project.clj` file:
 
 ```clojure
-[khroma "0.0.4"]
+[khroma "0.1.0"]
 ```
 
 ## Usage Example
@@ -22,7 +22,7 @@ Add the following dependency to your `project.clj` file:
   
   
 ; receieve messages for extension  
-(let [messages (runtime/messages)]
+(let [messages (runtime/on-message)]
   (go-loop [] 
     (when-let [message (<! messages)]
       (process-message message)
@@ -36,6 +36,9 @@ Add the following dependency to your `project.clj` file:
       (fn [response]
         (handle-response response))})
 ```
+
+
+
 
 ## License
 

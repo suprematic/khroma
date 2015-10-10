@@ -1,6 +1,7 @@
 (ns khroma.util
   (:require [cljs.core.async :as async]
-            [clojure.walk :as walk])
+            [clojure.walk :as walk]
+            [khroma.log :as console])
   (:require-macros
     [cljs.core.async.macros :refer [go alt!]]))
 
@@ -37,3 +38,8 @@
     (.addListener instance
                   (fn [& val-args]
                     (async/put! ch (walk/keywordize-keys (js->clj (zipmap key-args val-args)))))) ch))
+
+
+(defn deprecated [f name]
+  (console/warn (str "DEPRECATED. Use " name " instead."))
+  (f))
