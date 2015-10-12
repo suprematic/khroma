@@ -1,5 +1,9 @@
 # Khroma changelog
 
+## 0.2.0
+
+- `commands` namespace's name was and mistakenly `debugger`
+
 ## 0.1.0
 
 Includes potentially breaking changes.
