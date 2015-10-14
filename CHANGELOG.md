@@ -2,7 +2,8 @@
 
 ## 0.2.0
 
-- `commands` namespace's name was and mistakenly `debugger`
+- `commands`'s  namespace was mistakenly `debugger`
+- `identity`'s namespace was mistakenly `extension`
 
 ## 0.1.0
 
