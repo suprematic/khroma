@@ -21,14 +21,14 @@ Add the following dependency to your `project.clj` file:
   (:require [khroma.runtime :as runtime))
   
   
-; receieve messages for extension  
+; receive messages for extension  
 (let [messages (runtime/on-message)]
   (go-loop [] 
     (when-let [message (<! messages)]
       (process-message message)
       (recur)))
       
-; send message to anoher extension      
+; send message to another extension      
 (runtime/send-message 
    {:message-data "xx" :something-else "yyy"}
    {:extensionId "some.other.extension"
@@ -37,6 +37,8 @@ Add the following dependency to your `project.clj` file:
         (handle-response response))})
 ```
 
+
+You can see many other usage examples, as well as run the tests, by cloning [khroma-tests](https://gitlab.com/ricardojmendez/khroma-tests/).
 
 
 
