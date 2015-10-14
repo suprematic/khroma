@@ -53,6 +53,13 @@
   [tab-id]
   (update tab-id {:highlighted true :active true}))
 
+(defn remove
+  "Removes a tab by its ID (or a list of tabs, if it receives a list of IDs instead of an integer)"
+  ([to-remove]
+    (remove to-remove nil))
+  ([to-remove callback]
+    (.remove js/chrome.tabs to-remove callback)))
+
 
 ;;;;------------------------------
 ;;;; Event handlers

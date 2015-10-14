@@ -4,6 +4,7 @@
 
 - `commands`'s  namespace was mistakenly `debugger`
 - `identity`'s namespace was mistakenly `extension`
+- New `tabs/remove`
 
 ## 0.1.0
 
