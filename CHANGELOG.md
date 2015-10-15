@@ -5,6 +5,7 @@
 - `commands`'s  namespace was mistakenly `debugger`
 - `identity`'s namespace was mistakenly `extension`
 - New `tabs/remove`
+- New `windows/get-all`
 
 ## 0.1.0
 
