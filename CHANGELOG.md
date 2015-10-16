@@ -2,6 +2,12 @@
 
 ## 0.2.0
 
+### Breaking changes
+
+- `tabs/get-tab` and `tabs/get-active-tab` were sending the value enveloped in a map. They now send the raw tab object to remain closer to the API. [See issue #12](https://github.com/suprematic/khroma/issues/12).
+
+### Other changes and improvements
+
 - `commands`'s  namespace was mistakenly `debugger`
 - `identity`'s namespace was mistakenly `extension`
 - New `tabs/remove`, `tabs/query`

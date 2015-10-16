@@ -6,6 +6,12 @@ and heavily uses core.async for asynchronous API interaction.
 Khroma is still a work in progress, so not all APIs are implemented and well tested. The long term goal is to cover all Chrome 
 and Chrome OS API's to make use of ClojureScript for extensions and applications development as convenient as possible.
 
+
+## Upgrading
+
+Khroma 0.20 contains breaking changes from 0.1.0. Make sure you read the change log.
+
+
 ## Installation
 
 Add the following dependency to your `project.clj` file:

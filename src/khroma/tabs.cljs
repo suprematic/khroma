@@ -35,7 +35,7 @@
   (let [ch (async/chan)]
     (.get js/chrome.tabs tab-id
           (fn [tab]
-            (async/put! ch (walk/keywordize-keys (js->clj {:tab tab}))))) ch))
+            (async/put! ch (walk/keywordize-keys (js->clj tab))))) ch))
 
 
 (defn get-active-tab
@@ -48,7 +48,7 @@
     (.query js/chrome.tabs #js {:active true :currentWindow true}
             (fn [result]
               (when-let [tab (first result)]
-                (async/put! ch (walk/keywordize-keys (js->clj {:tab tab})))))) ch))
+                (async/put! ch (walk/keywordize-keys (js->clj tab)))))) ch))
 
 
 (defn query
@@ -109,7 +109,10 @@
 
 (defn on-replaced
   "Receives events when a tab is replaced with another tab. The notification
-  will include the id for the tabs added and removed."
+  will include the id for the tabs `:added` and `:removed`.  Chrome does not
+  send any information other than both ids.
+
+  See https://developer.chrome.com/extensions/tabs#event-onReplaced"
   []
   (kutil/add-listener js/chrome.tabs.onReplaced :added :removed))
 
