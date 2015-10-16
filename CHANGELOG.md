@@ -11,6 +11,7 @@
 - `commands`'s  namespace was mistakenly `debugger`
 - `identity`'s namespace was mistakenly `extension`
 - New `tabs/remove`, `tabs/query`
+- New event handler for `tabs/on-activated`
 - New `windows/get-all`
 - New event handlers for `windows/on-created`, `windows/on-removed`, `windows/on-focus-changed`
 

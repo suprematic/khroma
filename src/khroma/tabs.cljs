@@ -30,7 +30,9 @@
 
 
 (defn get-tab
-  "Returns a channel where we'll put a tab's information from its id"
+  "Returns a channel where we'll put a tab's information from its id.
+
+  See https://developer.chrome.com/extensions/tabs#method-get"
   [tab-id]
   (let [ch (async/chan)]
     (.get js/chrome.tabs tab-id
@@ -89,6 +91,13 @@
 ;;;; Event handlers
 ;;;;------------------------------
 
+
+(defn on-activated
+  "Receives events when a tab is activated.
+
+  See https://developer.chrome.com/extensions/tabs#event-onActivated"
+  []
+  (kutil/add-listener js/chrome.tabs.onActivated :activeInfo))
 
 (defn on-created
   "Receives events when a tab is created."
