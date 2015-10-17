@@ -15,12 +15,11 @@
   and saves it. It can optionally receive a function that gets called back when
   the value has been set.
 
-  If no storage area is indicated, it defaults to the local storage.
+  Use storage/local or storage/sync for the area. If no storage area is
+  indicated, it defaults to the local storage.
 
-  When getting, we will keywordize the values on the results, so you should
-  only use as keys values that can be turned to keywords.
-
-  Use storage/local or storage/sync for the area.
+  IMPORTANT: When getting, we will keywordize the values on the results, so you
+  should only use as keys values that can be turned to keywords.\n\n
 
   See https://developer.chrome.com/extensions/storage#type-StorageArea"
   ([items]
@@ -36,6 +35,9 @@
   put the results.
 
   If no storage area is indicated, it defaults to the local storage.
+
+  IMPORTANT: When getting, we  keywordize the values on the results, so you
+  should only have used as keys values that can be turned to keywords.
 
   See https://developer.chrome.com/extensions/storage#type-StorageArea"
   ([]
