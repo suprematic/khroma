@@ -14,6 +14,7 @@
 - New event handler for `tabs/on-activated`
 - New `windows/get-all`
 - New event handlers for `windows/on-created`, `windows/on-removed`, `windows/on-focus-changed`
+- Surfaced all `runtime` events.
 
 ## 0.1.0
 
