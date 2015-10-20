@@ -8,13 +8,14 @@
 
 ### Other changes and improvements
 
-- `commands`'s  namespace was mistakenly `debugger`
-- `identity`'s namespace was mistakenly `extension`
+- New `alarms` namespace.
 - New `tabs/remove`, `tabs/query`
 - New event handler for `tabs/on-activated`
 - New `windows/get-all`
 - New event handlers for `windows/on-created`, `windows/on-removed`, `windows/on-focus-changed`
 - Surfaced all `runtime` events.
+- `commands`'s  namespace was mistakenly `debugger`
+- `identity`'s namespace was mistakenly `extension`
 
 ## 0.1.0
 
