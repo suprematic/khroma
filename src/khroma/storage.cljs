@@ -1,4 +1,6 @@
-(ns khroma.storage
+(ns ^{:author "Ricardo J. Mendez"
+      :doc    "Functions to access Chrome's storage from an extension.
+      You will need to specify the storage permission on your manifest."} khroma.storage
   (:require
     [cljs.core.async :refer [chan >!]]
     [khroma.util :as util]
