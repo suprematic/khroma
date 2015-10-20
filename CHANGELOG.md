@@ -16,6 +16,8 @@
 - Surfaced all `runtime` events.
 - `commands`'s  namespace was mistakenly `debugger`
 - `identity`'s namespace was mistakenly `extension`
+- `extension/get-views` now expects a Clojure map as a parameter, no need to to `clj->js` before calling it.
+
 
 ## 0.1.0
 

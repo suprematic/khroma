@@ -19,10 +19,12 @@
 
   See https://developer.chrome.com/extensions/extension#method-getViews"
   [fetchProperties]
-  (.getViews js/chrome.extension fetchProperties))
+  (.getViews js/chrome.extension (clj->js fetchProperties)))
 
 (defn get-background-page
-  "Returns the window for the background page"
+  "Returns the window for the background page
+
+  See https://developer.chrome.com/extensions/extension#method-getBackgroundPage"
   []
   (.getBackgroundPage js/chrome.extension))
 
@@ -42,5 +44,10 @@
   (util/with-callback
     #(.isAllowedFileSchemeAccess js/chrome.extension %)))
 
-(defn set-update-url-data [data]
+(defn set-update-url-data
+  "Sets the value of the ap CGI parameter used in the extension's update URL.
+
+  See https://developer.chrome.com/extensions/extension#method-setUpdateUrlData
+  "
+  [data]
   (.setUpdateUrlData js/chrome.extension data))
