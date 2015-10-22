@@ -26,6 +26,8 @@
 
 (defn get-current
   "Returns a channel where we'll put the current window information.
+  That's the window that the function is being called from, not necessarily
+  the focused one.
 
   See https://developer.chrome.com/extensions/windows#method-getCurrent"
   ([]
@@ -33,6 +35,20 @@
   ([get-info]
    (let [ch (chan)]
      (.getCurrent js/chrome.windows (clj->js get-info)
+                  (fn [window]
+                    (go
+                      (>! ch (walk/keywordize-keys (js->clj window))))))
+     ch)))
+
+(defn get-last-focused
+  "Returns a channel where we'll put the information for the last focused window
+
+  See https://developer.chrome.com/extensions/windows#method-getLastFocused"
+  ([]
+   (get-last-focused {:populate true}))
+  ([get-info]
+   (let [ch (chan)]
+     (.getLastFocused js/chrome.windows (clj->js get-info)
                   (fn [window]
                     (go
                       (>! ch (walk/keywordize-keys (js->clj window))))))

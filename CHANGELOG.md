@@ -11,7 +11,7 @@
 - New `alarms` namespace.
 - New `tabs/remove`, `tabs/query`
 - New event handler for `tabs/on-activated`
-- New `windows/get-all`
+- New `windows/get-all`, `windows/get-last-focused`
 - New event handlers for `windows/on-created`, `windows/on-removed`, `windows/on-focus-changed`
 - Surfaced all `runtime` events.
 - `commands`'s  namespace was mistakenly `debugger`
