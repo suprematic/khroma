@@ -29,7 +29,7 @@
    (.create js/chrome.tabs (clj->js props) callback)))
 
 
-(defn get-tab
+(defn get
   "Returns a channel where we'll put a tab's information from its id.
 
   See https://developer.chrome.com/extensions/tabs#method-get"
@@ -40,9 +40,12 @@
             (async/put! ch (walk/keywordize-keys (js->clj tab))))) ch))
 
 
-(defn get-active-tab
-  "Returns a channel where we'll put the information for the current tab. Uses
-  `query`.
+(defn get-active
+  "Returns a channel where we'll put the information for the active tab
+  on the current window. Notice this might not be the active tab on the
+  window that has the focus.
+
+  Uses `query`.
 
   See https://developer.chrome.com/extensions/tabs#method-query"
   []

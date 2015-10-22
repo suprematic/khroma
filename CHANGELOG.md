@@ -4,7 +4,9 @@
 
 ### Breaking changes
 
-- `tabs/get-tab` and `tabs/get-active-tab` were sending the value enveloped in a map. They now send the raw tab object to remain closer to the API. [See issue #12](https://github.com/suprematic/khroma/issues/12).
+- `tabs/get-tab` is now called `tabs/get`
+- `tabs/get-active-tab` is now called `tabs/get-active`
+- `tabs/get` and `tabs/get-active` were sending the value enveloped in a map. They now send the raw tab object to remain closer to the API. [See issue #12](https://github.com/suprematic/khroma/issues/12).
 
 ### Other changes and improvements
 
