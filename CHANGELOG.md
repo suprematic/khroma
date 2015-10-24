@@ -10,7 +10,8 @@
 
 ### Other changes and improvements
 
-- New `alarms` namespace.
+- New `alarms` namespace (complete).
+- New `web-navigation` namespace (WIP).
 - New `tabs/remove`, `tabs/query`
 - New event handler for `tabs/on-activated`
 - New `windows/get-all`, `windows/get-last-focused`

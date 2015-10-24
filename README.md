@@ -20,14 +20,23 @@ Add the following dependency to your `project.clj` file:
 [khroma "0.2.0-SNAPSHOT"]
 ```
 
-## Methodology and contributing
+## Methodology
 
-This repository will be maintained using [git-flow](http://nvie.com/posts/a-successful-git-branching-model/). 
+This repository will be maintained using [git-flow](http://nvie.com/posts/a-successful-git-branching-model/).
+
+`develop` and `master` branches can be considered set in stone, but I'll be developing this publicly - if you see a feature branch, assume it's mercurial and may be amended or rebased in the future.
+ 
+### Contributing
 
 Pull requests are welcome, please make them from your clone's `develop` branch.
 
-`develop` and `master` branches can be considered set in stone, but I'll be developing this publicly - if you see a feature branch, assume it's mercurial and may be amended or rebased in the future.
-
+### Low-hanging fruit
+ 
+- Finish exposing the events on web-navigation
+- Event filtering examples
+- `on-command` event and examples
+- Finish exposing `windows` functions
+  
 
 ## Usage Example
 
@@ -54,6 +63,8 @@ Pull requests are welcome, please make them from your clone's `develop` branch.
 
 
 You can see many other usage examples, as well as run the tests, by cloning [khroma-tests](https://gitlab.com/ricardojmendez/khroma-tests/).
+
+
 
 
 
