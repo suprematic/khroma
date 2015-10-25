@@ -7,6 +7,8 @@
 - `tabs/get-tab` is now called `tabs/get`
 - `tabs/get-active-tab` is now called `tabs/get-active`
 - `tabs/get` and `tabs/get-active` were sending the value enveloped in a map. They now send the raw tab object to remain closer to the API. [See issue #12](https://github.com/suprematic/khroma/issues/12).
+- `util/with-callback` now keywordizes the return value to provide consistent behavior with other functions. This is a potentially breaking change, and can affect you if you're using the `debugger` or `identity` namespaces.
+
 
 ### Other changes and improvements
 
