@@ -1,6 +1,5 @@
 (ns khroma.tabs
-  (:require [khroma.log :as console]
-            [khroma.util :as kutil]
+  (:require [khroma.util :as kutil]
             [clojure.walk :as walk]
             [cljs.core.async :as async])
   (:require-macros [cljs.core.async.macros :refer [go go-loop]]))
@@ -123,6 +122,10 @@
   "Receives events when a tab is replaced with another tab. The notification
   will include the id for the tabs `:added` and `:removed`.  Chrome does not
   send any information other than both ids.
+
+  From reading the webNavigation documentation, it appears that this event is
+  sent when a tab is replaced with a previously-rendered one, which explains
+  why we normally get it when a tab comes from the cache.
 
   See https://developer.chrome.com/extensions/tabs#event-onReplaced"
   []
