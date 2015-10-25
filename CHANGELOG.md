@@ -13,6 +13,7 @@
 - New `alarms` namespace (complete).
 - New `web-navigation` namespace (WIP).
 - New `tabs/remove`, `tabs/query`
+- New event handler for `commands/on-command`
 - New event handler for `tabs/on-activated`
 - New `windows/get-all`, `windows/get-last-focused`
 - New event handlers for `windows/on-created`, `windows/on-removed`, `windows/on-focus-changed`
