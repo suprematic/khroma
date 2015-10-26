@@ -7,8 +7,14 @@
     [cljs.core.async.macros :refer [go go-loop]]))
 
 
-;; Always -1, but let's expose it in case it changes
-(def none (.-WINDOW-ID-NONE js/chrome.windows))
+;; While it would be ideal to define this as
+;;
+;;   (def none (.-WINDOW-ID-NONE js/chrome.windows))
+;;
+;; this causes a situation on content scripts, since khroma.windows
+;; might be refernced on the js for the application as a whole, but
+;; chrome.windows is _not_ accessible from content scripts.
+(def none -1)
 
 (defn get-all
   "Returns an array containing information for all open windows.
