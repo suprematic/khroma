@@ -12,6 +12,7 @@
 
 ### Other changes and improvements
 
+- Khroma now includes externs for the Chrome extensions API, so that we can support `:advanced` compilation ([obtained from here](http://closureplease.com/externs/)).
 - New `alarms` namespace (complete).
 - New `web-navigation` namespace (WIP).
 - New `tabs/remove`, `tabs/query`
