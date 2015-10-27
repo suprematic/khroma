@@ -51,7 +51,11 @@
 
 (defn on-connect
   "Fired when a connection is made from either an extension process
-  or a content script.
+  or a content script. The channel returned will receive a itself a
+  channel obtained from the port passed by Chrome's onConnect event.
+
+  Notice that any information sent through that channel will be converted
+  to Javascript format, meaning that keywords will be lost.
 
   See https://developer.chrome.com/extensions/runtime#event-onConnect"
   []
@@ -64,7 +68,9 @@
 
 
 (defn on-connect-external
-  "Fired when a connection is made from another extension.
+  "Fired when a connection is made from another extension. The channel returned
+  will receive a itself a channel obtained from the port passed by Chrome's
+  onConnectExternal event.
 
   See https://developer.chrome.com/extensions/runtime#event-onConnectExternal"
   []
