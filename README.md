@@ -35,7 +35,7 @@ Pull requests are welcome, please make them from your clone's `develop` branch.
 - Finish exposing the events on web-navigation
 - Event filtering examples
 - `on-command` event and examples
-- Finish exposing `windows` functions
+- Finish exposing `tabs` and `windows` functions
   
 
 ## Usage Example

@@ -19,7 +19,7 @@
 - New `tabs/move`, `tabs/query`, `tabs/remove`
 - New event handler for `commands/on-command`
 - New event handler for `tabs/on-activated`
-- New `windows/get-all`, `windows/get-last-focused`
+- New `windows/get`, `windows/get-all`, `windows/get-last-focused`
 - New event handlers for `windows/on-created`, `windows/on-removed`, `windows/on-focus-changed`
 - Surfaced all `runtime` events.
 - `commands`'s  namespace was mistakenly `debugger`

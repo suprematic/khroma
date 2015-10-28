@@ -16,6 +16,20 @@
 ;; chrome.windows is _not_ accessible from content scripts.
 (def none -1)
 
+(defn get
+  "Returns a channel where we'll put the requested window information
+
+  See https://developer.chrome.com/extensions/windows#method-get"
+  ([id]
+   (get id {:populate true}))
+  ([id get-info]
+   (let [ch (chan)]
+     (.get js/chrome.windows id (clj->js get-info)
+           (fn [window]
+             (go
+               (>! ch (walk/keywordize-keys (js->clj window))))))
+     ch)))
+
 (defn get-all
   "Returns an array containing information for all open windows.
 
@@ -55,9 +69,9 @@
   ([get-info]
    (let [ch (chan)]
      (.getLastFocused js/chrome.windows (clj->js get-info)
-                  (fn [window]
-                    (go
-                      (>! ch (walk/keywordize-keys (js->clj window))))))
+                      (fn [window]
+                        (go
+                          (>! ch (walk/keywordize-keys (js->clj window))))))
      ch)))
 
 
