@@ -77,6 +77,16 @@
   ([to-remove callback]
    (.remove js/chrome.tabs to-remove callback)))
 
+(defn move
+  "Moves one or more tabs. The first parameter can be either a tab id or
+  a list of tab ids.
+
+  See https://developer.chrome.com/extensions/tabs#method-move"
+  ([tabs properties]
+   (move tabs properties nil))
+  ([tabs properties callback]
+   (.move js/chrome.tabs tabs (clj->js properties) callback)))
+
 
 (defn update
   "Updates the properties for a tab.
