@@ -25,6 +25,7 @@
 - `commands`'s  namespace was mistakenly `debugger`
 - `identity`'s namespace was mistakenly `extension`
 - `extension/get-views` now expects a Clojure map as a parameter, no need to to `clj->js` before calling it.
+- BUGFIX: `runtime/send-message` failed when we didn't send an extension id, even though it's optional.
 
 
 ## 0.1.0

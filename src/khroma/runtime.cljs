@@ -33,12 +33,16 @@
 (defn messages "DEPRECATED" []
   (kutil/deprecated on-message "runtime/on-message"))
 
-(defn send-message [message & options]
+(defn send-message
+  "Sends a message to either our own extension or a different one.
+
+  See https://developer.chrome.com/extensions/runtime#method-sendMessage"
+  [message & options]
   (let [{:keys [extensionId options responseCallback]} (apply hash-map options)]
     (.apply
       js/chrome.runtime.sendMessage js/chrome.runtime
         (kutil/options->jsparams
-          [extensionId message options responseCallback]))))
+          [(or extensionId "") message options responseCallback]))))
 
 
 
