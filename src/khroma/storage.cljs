@@ -46,12 +46,20 @@
    (get nil local))
   ([keys]
    (get keys local))
-  ([keys area]
-   (let [ch (chan)]
+  ([keys area & opts]
+   (let [ch     (chan)
+         {:keys [key-fn]} opts
+         walk-f (or key-fn keyword)]
      (.get area (clj->js keys)
            (fn [result]
              (go
-               (>! ch (walk/keywordize-keys (js->clj result))))))
+               (>! ch (walk/postwalk (fn [x]
+                                       (if (map? x)
+                                         (into {} (map #(vector (walk-f (key %))
+                                                                (val %))
+                                                       x))
+                                         x))
+                                     (js->clj result))))))
      ch))
   )
 

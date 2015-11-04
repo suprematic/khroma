@@ -26,6 +26,7 @@
 - `identity`'s namespace was mistakenly `extension`
 - `extension/get-views` now expects a Clojure map as a parameter, no need to to `clj->js` before calling it.
 - BUGFIX: `runtime/send-message` failed when we didn't send an extension id, even though it's optional.
+- `storage/get` will keywordize keys by default, but this behavior can be altered by passing an arbitrary :key-fn
 
 
 ## 0.1.0
