@@ -1,5 +1,5 @@
 (defproject
-  khroma "0.2.0-SNAPSHOT"
+  khroma "0.2.0"
   :description "ClojureScript interface to Google Chrome Extension API"
   :url "https://github.com/suprematic/khroma"
 
