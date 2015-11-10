@@ -31,19 +31,19 @@
 	(util/with-callback
 		#(.removeCachedAuthToken js/chrome.identity details %)))
 
-(defn
+(defn launch-web-auth-flow
 	"Starts a web auth flow with a URL.
 
 	See https://developer.chrome.com/apps/identity#method-launchWebAuthFlow
 	"
-	launch-web-auth-flow [details]
+	[details]
 	(util/with-callback
 		#(.launchWebAuthFlow js/chrome.identity details %)))
 
-(defn
+(defn get-redirect-url
 	"Gets a redirect URL for a web auth flow.
 
 	See https://developer.chrome.com/apps/identity#method-getRedirectURL"
-	get-redirect-url [path]
+	[path]
 	(util/with-callback
 		#(.getRedirectURL js/chrome.identity path %)))
