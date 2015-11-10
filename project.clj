@@ -5,7 +5,7 @@
 
   :license { :name "EPL" :url "http://www.eclipse.org/legal/epl-v10.html"}
 
-  :source-paths  ["src"]
+  :source-paths  ["src/main"]
 
 
   :dependencies [[org.clojure/clojure "1.7.0"]
