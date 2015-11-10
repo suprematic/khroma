@@ -9,25 +9,45 @@
   (util/with-callback
     #(.sendRequest js/chrome.extension extension-id request %)))
 
-(defn get-url [path]
+(defn get-url
+  "Returns a full url for a path inside the extension"
+  [path]
   (.getURL js/chrome.extension path))
 
-(defn get-views [fetchProperties]
-  (.getViews js/chrome.extension fetchProperties))
+(defn get-views
+  "Returns, by default, all views and windows running on the extension.
 
-(defn get-background-page []
+  See https://developer.chrome.com/extensions/extension#method-getViews"
+  [fetchProperties]
+  (.getViews js/chrome.extension (clj->js fetchProperties)))
+
+(defn get-background-page
+  "Returns the window for the background page
+
+  See https://developer.chrome.com/extensions/extension#method-getBackgroundPage"
+  []
   (.getBackgroundPage js/chrome.extension))
 
-(defn get-extension-tabs [windowId]
+(defn get-extension-tabs "Deprecated since Chrome 33, see get-views" [windowId]
   (.getExtensionTabs js/chrome.extension))
 
-(defn allowed-incognito-access? []
+(defn allowed-incognito-access?
+  "Is our extension allowed incognito access? Returns a channel."
+  []
   (util/with-callback
     #(.isAllowedIncognitoAccess js/chrome.extension %)))
 
-(defn allowed-file-scheme-access? []
+(defn allowed-file-scheme-access?
+  "Returns a channel where we'll put the reply on if the extension is
+  allowed file scheme access"
+  []
   (util/with-callback
     #(.isAllowedFileSchemeAccess js/chrome.extension %)))
 
-(defn set-update-url-data [data]
+(defn set-update-url-data
+  "Sets the value of the ap CGI parameter used in the extension's update URL.
+
+  See https://developer.chrome.com/extensions/extension#method-setUpdateUrlData
+  "
+  [data]
   (.setUpdateUrlData js/chrome.extension data))

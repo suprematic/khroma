@@ -1,4 +1,6 @@
-(ns khroma.storage
+(ns ^{:author "Ricardo J. Mendez"
+      :doc    "Functions to access Chrome's storage from an extension.
+      You will need to specify the storage permission on your manifest."} khroma.storage
   (:require
     [cljs.core.async :refer [chan >!]]
     [khroma.util :as util]
@@ -15,12 +17,11 @@
   and saves it. It can optionally receive a function that gets called back when
   the value has been set.
 
-  If no storage area is indicated, it defaults to the local storage.
+  Use storage/local or storage/sync for the area. If no storage area is
+  indicated, it defaults to the local storage.
 
-  When getting, we will keywordize the values on the results, so you should
-  only use as keys values that can be turned to keywords.
-
-  Use storage/local or storage/sync for the area.
+  IMPORTANT: When getting, we will keywordize the values on the results, so you
+  should only use as keys values that can be turned to keywords.\n\n
 
   See https://developer.chrome.com/extensions/storage#type-StorageArea"
   ([items]
@@ -37,17 +38,28 @@
 
   If no storage area is indicated, it defaults to the local storage.
 
+  IMPORTANT: When getting, we  keywordize the values on the results, so you
+  should only have used as keys values that can be turned to keywords.
+
   See https://developer.chrome.com/extensions/storage#type-StorageArea"
   ([]
    (get nil local))
   ([keys]
    (get keys local))
-  ([keys area]
-   (let [ch (chan)]
+  ([keys area & opts]
+   (let [ch     (chan)
+         {:keys [key-fn]} opts
+         walk-f (or key-fn keyword)]
      (.get area (clj->js keys)
            (fn [result]
              (go
-               (>! ch (walk/keywordize-keys (js->clj result))))))
+               (>! ch (walk/postwalk (fn [x]
+                                       (if (map? x)
+                                         (into {} (map #(vector (walk-f (key %))
+                                                                (val %))
+                                                       x))
+                                         x))
+                                     (js->clj result))))))
      ch))
   )
 

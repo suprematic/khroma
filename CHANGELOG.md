@@ -1,5 +1,34 @@
 # Khroma changelog
 
+## 0.2.0
+
+### Breaking changes
+
+- `tabs/get-tab` is now called `tabs/get`
+- `tabs/get-active-tab` is now called `tabs/get-active`
+- `tabs/get` and `tabs/get-active` were sending the value enveloped in a map. They now send the raw tab object to remain closer to the API. [See issue #12](https://github.com/suprematic/khroma/issues/12).
+- `util/with-callback` now keywordizes the return value to provide consistent behavior with other functions. This is a potentially breaking change, and can affect you if you're using the `debugger` or `identity` namespaces.
+
+
+### Other changes and improvements
+
+- Khroma now includes externs for the Chrome extensions API, so that we can support `:advanced` compilation ([obtained from here](http://closureplease.com/externs/)).
+- New `alarms` namespace (complete).
+- New `context-menus` namespace (complete).
+- New `web-navigation` namespace (WIP).
+- New `tabs/move`, `tabs/query`, `tabs/remove`
+- New event handler for `commands/on-command`
+- New event handler for `tabs/on-activated`
+- New `windows/get`, `windows/get-all`, `windows/get-last-focused`
+- New event handlers for `windows/on-created`, `windows/on-removed`, `windows/on-focus-changed`
+- Surfaced all `runtime` events.
+- `commands`'s  namespace was mistakenly `debugger`
+- `identity`'s namespace was mistakenly `extension`
+- `extension/get-views` now expects a Clojure map as a parameter, no need to to `clj->js` before calling it.
+- BUGFIX: `runtime/send-message` failed when we didn't send an extension id, even though it's optional.
+- `storage/get` will keywordize keys by default, but this behavior can be altered by passing an arbitrary :key-fn
+
+
 ## 0.1.0
 
 Includes potentially breaking changes.
