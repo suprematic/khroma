@@ -12,3 +12,11 @@
                  [org.clojure/clojurescript "1.7.145"]
                  [org.clojure/core.async "0.1.346.0-17112a-alpha"]]
    )
+  :plugins [[lein-cljsbuild "1.1.0"]]
+
+  :cljsbuild {:builds
+              {:main
+               {:source-paths ["src/main"]
+                :compiler     {:output-to    "target/khroma.js"
+                               :output-dir   "target/js"
+                               :pretty-print true}}}}                               :pretty-print true}}}}
