@@ -38,7 +38,12 @@ Pull requests are welcome, please make them from your clone's `develop` branch.
 - Finish exposing `tabs` and `windows` functions
   
 
-## Usage Example
+## Tests and examples
+
+See [khroma-tests.md](khroma-tests.md)
+
+
+## Trivial example
 
 ```clojure
 (ns example
@@ -62,14 +67,10 @@ Pull requests are welcome, please make them from your clone's `develop` branch.
 ```
 
 
-You can see many other usage examples, as well as run the tests, by cloning [khroma-tests](https://gitlab.com/ricardojmendez/khroma-tests/).
-
-
-
-
-
 ## License
 
-Copyright © 2015 SUPREMATIC (http://www.suprematic.net)
+Copyright © 2015 [SUPREMATIC](http://www.suprematic.net).
+
+Includes `khroma-tests` © 2015 [Numergent Limited](http://numergent.com/).
 
 Distributed under the Eclipse Public License, the same as Clojure.
