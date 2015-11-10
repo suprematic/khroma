@@ -17,7 +17,7 @@ Khroma 0.2.0 contains breaking changes from 0.1.0. Make sure you read the change
 Add the following dependency to your `project.clj` file:
 
 ```clojure
-[khroma "0.2.0-SNAPSHOT"]
+[khroma "0.2.0"]
 ```
 
 ## Methodology
