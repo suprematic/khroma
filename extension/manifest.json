@@ -1,0 +1,47 @@
+{
+  "name": "khroma-tests",
+  "version": "0.3.0",
+  "browser_action": {
+    "default_title": "Open the Khroma tests",
+    "scripts": [
+      "khroma_tests.js",
+      "button_handler_init.js"
+    ],
+    "default_icon": {
+      "19": "icon19.png",
+      "38": "icon38.png"
+    }
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "permissions": [
+    "alarms",
+    "tabs",
+    "storage",
+    "webNavigation",
+    "idle",
+    "contextMenus"
+  ],
+  "background": {
+    "scripts": [
+      "khroma_tests.js",
+      "background_init.js",
+      "button_handler_init.js"
+    ],
+    "persistent": false
+  },
+  "commands": {
+    "say-hi": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+0"
+      },
+      "description": "Send a sample command",
+      "global": false
+    }
+  },
+  "manifest_version": 2
+}
+

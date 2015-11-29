@@ -1,5 +1,9 @@
 # Khroma changelog
 
+## 0.3.0
+
+- Integrated khroma-tests into the main khroma repository. See `khroma-tests.md` for instructions.
+
 ## 0.2.0
 
 ### Breaking changes
