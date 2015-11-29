@@ -9,7 +9,7 @@ and Chrome OS API's to make use of ClojureScript for extensions and applications
 
 ## Upgrading
 
-Khroma 0.2.0 contains breaking changes from 0.1.0. Make sure you read the change log.
+Khroma 0.3.0 contains breaking changes from 0.1.0. Make sure you read the change log.
 
 
 ## Installation
@@ -17,7 +17,7 @@ Khroma 0.2.0 contains breaking changes from 0.1.0. Make sure you read the change
 Add the following dependency to your `project.clj` file:
 
 ```clojure
-[khroma "0.2.0"]
+[khroma "0.3.0"]
 ```
 
 ## Methodology
